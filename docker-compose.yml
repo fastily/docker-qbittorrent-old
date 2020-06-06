@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+    qbt-web:
+      image: qbt-nox:1.0
+      build: .
+      ports:
+        - '8080:8080'
+        - '33702:33702'
+        - '33702:33702/udp'
+      volumes:
+        - ${DLFOLDER:-/mnt/stuff}:/root/Downloads # DLFOLDER is an env var, set to a real absolute path on YOUR computer
+      restart: unless-stopped
