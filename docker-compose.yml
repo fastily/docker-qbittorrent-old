@@ -2,12 +2,19 @@ version: "3.8"
 
 services:
     qbt-web:
-      image: qbt-nox:1.0
-      build: .
+      image: qbt-web:0.0.1
+      build:
+        context: .
+        args: 
+          - UID: ${UID}
+          - GID: ${GID}
+          - USERNAME: ${USERNAME}
       ports:
         - '8080:8080'
         - '33702:33702'
         - '33702:33702/udp'
+
+      user: ${UID}:${GID}
       volumes:
-        - ${DLFOLDER:-/mnt/stuff}:/root/Downloads # DLFOLDER is an env var, set to a real absolute path on YOUR computer
+        - ${DLFOLDER:-/mnt/dump}:/root/Downloads # DLFOLDER is an env var, set to a real absolute path on YOUR computer
       restart: unless-stopped
