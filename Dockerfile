@@ -17,9 +17,10 @@ ARG GID=1234
 
 RUN groupadd -g $GID -o $USERNAME && useradd -m -u $UID -g $GID -o -s /bin/bash $USERNAME
 
-COPY qBittorrent.conf "/home/$USERNAME/.config/qBittorrent/qBittorrent.conf"
-RUN  chown -R $USERNAME "/home/$USERNAME/.config/"
 VOLUME ["/home/$USERNAME/Downloads"]
+
+COPY qBittorrent.conf "/home/$USERNAME/.config/qBittorrent/qBittorrent.conf"
+RUN  chown -R $USERNAME "/home/$USERNAME/.config/" && chmod a+rwx "/home/$USERNAME/Downloads"
 
 USER $USERNAME
 
